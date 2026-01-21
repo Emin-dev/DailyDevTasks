@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>My Tasks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark" data-animation="slow">
+
+<div class="app-wrapper">
+<div class="app">
+
+<header>
+<div class="header-top">
+<div>
+<h1>My Tasks</h1>
+<p class="subtitle">Stay organized, stay productive</p>
+</div>
+<div class="header-actions">
+<button class="icon-btn" id="theme" title="Toggle Theme">
+<svg class="icon"><use href="#icon-theme"/></svg>
+</button>
+<button class="icon-btn" id="analytics" title="Analytics">
+<svg class="icon"><use href="#icon-chart"/></svg>
+</button>
+</div>
+</div>
+
+<div class="hint-banner" id="hint-banner">
+<span class="hint-text"></span>
+<button class="hint-close">
+<svg class="icon"><use href="#icon-x"/></svg>
+</button>
+</div>
+
+<div class="quick-add">
+<input type="text" id="input" placeholder="Add a task... Try: 'Buy milk tomorrow #shopping !high'">
+<button id="add">
+<svg class="icon"><use href="#icon-plus"/></svg>
+</button>
+</div>
+
+<div id="quick-categories" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
+
+<div class="filters">
+<button class="filter active" data-filter="all">All</button>
+<button class="filter" data-filter="today">Today</button>
+<button class="filter" data-filter="week">This Week</button>
+<button class="filter" data-filter="overdue">Overdue</button>
+<button class="filter" data-filter="completed">Done</button>
+</div>
+
+<div class="toolbar">
+<div class="search-wrapper">
+<svg class="icon"><use href="#icon-search"/></svg>
+<input type="text" id="search" placeholder="Search...">
+</div>
+<select id="category-filter">
+<option value="">All Categories</option>
+</select>
+<select id="priority-filter">
+<option value="">All Priorities</option>
+<option value="high">High</option>
+<option value="medium">Medium</option>
+<option value="low">Low</option>
+</select>
+<button class="icon-btn" id="sort" title="Reverse Order">
+<svg class="icon"><use href="#icon-sort"/></svg>
+</button>
+</div>
+
+<div class="stats" id="stats"></div>
+</header>
+
+<div class="task-list" id="list"></div>
+
+</div>
+</div>
+
+<div class="swipe-hint" id="swipe-hint">
+<div class="swipe-hint-left">
+<svg class="icon"><use href="#icon-trash"/></svg>
+<span>Delete</span>
+</div>
+<div class="swipe-hint-right">
+<svg class="icon"><use href="#icon-check"/></svg>
+<span>Complete</span>
+</div>
+</div>
+
+<div class="modal" id="analytics-modal">
+<div class="modal-content">
+<div class="modal-header">
+<h3>Analytics</h3>
+<button class="modal-close">
+<svg class="icon"><use href="#icon-x"/></svg>
+</button>
+</div>
+<div class="modal-body" id="analytics-content"></div>
+</div>
+</div>
+
+<div class="toast" id="toast">
+<span class="toast-text"></span>
+<button class="toast-undo">Undo</button>
+</div>
+
+<svg style="display:none">
+<symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+</symbol>
+<symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="20 6 9 17 4 12"/>
+</symbol>
+<symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+</symbol>
+<symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+</symbol>
+<symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+</symbol>
+<symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+</symbol>
+<symbol id="icon-theme" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+</symbol>
+<symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+</symbol>
+<symbol id="icon-sort" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+</symbol>
+<symbol id="icon-drag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/>
+</symbol>
+</svg>
+
+<script src="app.js"></script>
+</body>
+</html>
